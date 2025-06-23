@@ -1,7 +1,7 @@
 const { configDotenv } = require('dotenv');
 const { env } = require('process');
 const {startLogin, fetchToken} = require('../service/googleService');
-const redisClient = require('../common/redis');
+// const redisClient = require('../common/redis');
 
 configDotenv();
 
@@ -11,11 +11,11 @@ const handleGoogleCallback = async (req, res)=>{
         const acessTokenUrl = env.GOOGLE_ACCESS_TOKEN_URL;
         const {token, email} = await fetchToken(acessTokenUrl, code);
 
-        redisClient.set(email, token)
+        //redisClient.set(email, token)
         res.cookie('userSession',  email);
         res.redirect('http://localhost:3000/build')
     }catch(e){
-        console.error('Error occured while authorizigin user', e);
+        console.error('Error occured while authorizigin user');
     }
 }
 
